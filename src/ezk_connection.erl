@@ -184,7 +184,7 @@ exists(ConnectionPId, Path, WatchOwner, WatchMessage) ->
 get(ConnectionPId, Path) ->     
     gen_server:call(ConnectionPId, {command, {get, Path}}).
 n_get(ConnectionPId, Path, Receiver, Tag) ->     
-    gen_server:cast(ConnectionPId, {command, {get, Path}, Receiver, Tag}).
+    gen_server:cast(ConnectionPId, {nbcommand, {get, Path}, Receiver, Tag}).
 %% Like the one above but sets a datawatch to Path.
 %% If watch is triggered a Message M is send to the PId WatchOwner
 %% M = {WatchMessage, {Path, Type, SyncCon}
@@ -198,7 +198,7 @@ get(ConnectionPId, Path, WatchOwner, WatchMessage) ->
 get_acl(ConnectionPId, Path) ->     
     gen_server:call(ConnectionPId, {command, {get_acl, Path}}).
 n_get_acl(ConnectionPId, Path, Receiver, Tag) ->     
-    gen_server:cast(ConnectionPId, {command, {get_acl, Path}, Receiver, Tag}).
+    gen_server:cast(ConnectionPId, {nbcommand, {get_acl, Path}, Receiver, Tag}).
 
 %% Sets new Data in a Node. Old ones are lost.
 %% Dataformat is Binary.
@@ -206,7 +206,7 @@ n_get_acl(ConnectionPId, Path, Receiver, Tag) ->
 set(ConnectionPId, Path, Data) ->     
     gen_server:call(ConnectionPId, {command, {set, Path, Data}}).
 n_set(ConnectionPId, Path, Data, Receiver, Tag) ->     
-    gen_server:cast(ConnectionPId, {command, {set, Path, Data}, Receiver, Tag}).
+    gen_server:cast(ConnectionPId, {nbcommand, {set, Path, Data}, Receiver, Tag}).
 
 %% Sets new Acls in a Node. Old ones are lost.
 %% ACL like above.
@@ -214,7 +214,7 @@ n_set(ConnectionPId, Path, Data, Receiver, Tag) ->
 set_acl(ConnectionPId, Path, Acls) ->     
     gen_server:call(ConnectionPId, {command, {set_acl, Path, Acls}}).
 n_set_acl(ConnectionPId, Path, Acls, Receiver, Tag) ->     
-    gen_server:cast(ConnectionPId, {command, {set_acl, Path, Acls}, Receiver, Tag}).
+    gen_server:cast(ConnectionPId, {nbcommand, {set_acl, Path, Acls}, Receiver, Tag}).
 
 %% Lists all Children of a Node. Paths are given as Binarys!
 %% Reply = [ChildName] where ChildName = <<"Name">>
@@ -235,7 +235,7 @@ ls2(ConnectionPId, Path) ->
      
 		  gen_server:call(ConnectionPId, {command, {ls2, Path}}).
 n_ls2(ConnectionPId, Path, Receiver, Tag) ->     
-		  gen_server:cast(ConnectionPId, {command, {ls2, Path},
+		  gen_server:cast(ConnectionPId, {nbcommand, {ls2, Path},
 						  Receiver, Tag}).
 %% like above, but a Childwatch is set to the Node. 
 %% Same Reaktion like at get with watch but Type = child
